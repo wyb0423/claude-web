@@ -37,15 +37,18 @@ public class ClaudeApiController {
 
     /**
      * Forward a permission response to the Claude Agent.
-     * Supports rememberEntry for persistent permission rules.
+     * Supports two formats:
+     * 1. Claude Agent protocol: { requestId, allow, rememberEntry }
+     * 2. JSON-RPC response: { id, result } or { id, error }
      */
     @PostMapping("/server-requests/respond")
     public ResponseEntity<?> respondToServerRequest(@RequestBody Map<String, Object> body) {
         try {
+            // Format 1: Claude Agent permission_response protocol
             String requestId = (String) body.get("requestId");
-            Boolean allow = (Boolean) body.get("allow");
-            String rememberEntry = (String) body.get("rememberEntry");
             if (requestId != null) {
+                Boolean allow = (Boolean) body.get("allow");
+                String rememberEntry = (String) body.get("rememberEntry");
                 Map<String, Object> respMsg = new HashMap<>();
                 respMsg.put("type", "permission_response");
                 respMsg.put("requestId", requestId);
@@ -54,8 +57,17 @@ public class ClaudeApiController {
                     respMsg.put("rememberEntry", rememberEntry);
                 }
                 appServerProcess.sendRaw(new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(respMsg));
+                return ResponseEntity.ok(Map.of("ok", true));
             }
-            return ResponseEntity.ok(Map.of("ok", true));
+
+            // Format 2: JSON-RPC response for server-initiated requests
+            Object idObj = body.get("id");
+            if (idObj != null) {
+                appServerProcess.respondToServerRequest(body);
+                return ResponseEntity.ok(Map.of("ok", true));
+            }
+
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid request: expected 'requestId' or 'id'"));
         } catch (Exception e) {
             return ResponseEntity.status(502).body(Map.of("error", e.getMessage()));
         }
@@ -66,7 +78,7 @@ public class ClaudeApiController {
      */
     @GetMapping("/server-requests/pending")
     public ResponseEntity<?> listPendingRequests() {
-        return ResponseEntity.ok(Map.of("data", new ArrayList<>()));
+        return ResponseEntity.ok(Map.of("data", appServerProcess.listPendingServerRequests()));
     }
 
     /**
