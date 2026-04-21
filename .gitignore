@@ -1,0 +1,28 @@
+# Maven
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+/logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Test reports (keep only latest summary)
+/tests/reports/*
+!/tests/reports/TEST_REPORT_20260419.md
