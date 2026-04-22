@@ -89,7 +89,7 @@ public class SessionApiController {
             try {
                 Map<String, Object> response = appServerProcess.sendRawRequest(
                     "list_sessions",
-                    Map.of("cwd", "/home/sunsw/code"),
+                    Map.of("cwd", "/home/ubuntu"),
                     10000
                 );
                 @SuppressWarnings("unchecked")
@@ -186,13 +186,13 @@ public class SessionApiController {
             if (sdkId != null) {
                 Map<String, Object> response = appServerProcess.sendRawRequest(
                     "get_session_messages",
-                    Map.of("sessionId", queryId, "cwd", "/home/sunsw/code"),
+                    Map.of("sessionId", queryId, "cwd", "/home/ubuntu"),
                     15000
                 );
                 @SuppressWarnings("unchecked")
                 List<Map<String, Object>> agentMessages = (List<Map<String, Object>>) response.get("messages");
                 msgs = convertAgentMessages(agentMessages);
-                cwd = session != null ? session.cwd : "/home/sunsw/code";
+                cwd = session != null ? session.cwd : "/home/ubuntu";
             } else if (session != null) {
                 if (session.inProgress) {
                     // Actively streaming — merge SDK historical messages with in-memory messages
@@ -200,7 +200,7 @@ public class SessionApiController {
                     try {
                         Map<String, Object> response = appServerProcess.sendRawRequest(
                             "get_session_messages",
-                            Map.of("sessionId", queryId, "cwd", "/home/sunsw/code"),
+                            Map.of("sessionId", queryId, "cwd", "/home/ubuntu"),
                             15000
                         );
                         @SuppressWarnings("unchecked")
@@ -217,7 +217,7 @@ public class SessionApiController {
                     // Not streaming — SDK is the source of truth for complete history
                     Map<String, Object> response = appServerProcess.sendRawRequest(
                         "get_session_messages",
-                        Map.of("sessionId", queryId, "cwd", "/home/sunsw/code"),
+                        Map.of("sessionId", queryId, "cwd", "/home/ubuntu"),
                         15000
                     );
                     @SuppressWarnings("unchecked")
@@ -228,13 +228,13 @@ public class SessionApiController {
             } else {
                 Map<String, Object> response = appServerProcess.sendRawRequest(
                     "get_session_messages",
-                    Map.of("sessionId", queryId, "cwd", "/home/sunsw/code"),
+                    Map.of("sessionId", queryId, "cwd", "/home/ubuntu"),
                     15000
                 );
                 @SuppressWarnings("unchecked")
                 List<Map<String, Object>> agentMessages = (List<Map<String, Object>>) response.get("messages");
                 msgs = convertAgentMessages(agentMessages);
-                cwd = "/home/sunsw/code";
+                cwd = "/home/ubuntu";
             }
 
             Map<String, Object> thread = new HashMap<>();
@@ -301,7 +301,7 @@ public class SessionApiController {
                 // the same session and replies are tracked under the same ID.
                 session = new ClaudeSession();
                 session.id = id;
-                session.cwd = "/home/sunsw/code";
+                session.cwd = "/home/ubuntu";
                 session.preview = "Session";
                 session.createdAt = System.currentTimeMillis() / 1000;
                 session.updatedAt = session.createdAt;
@@ -432,7 +432,7 @@ public class SessionApiController {
             try {
                 appServerProcess.sendRawRequest(
                     "delete_session",
-                    Map.of("sessionId", queryId, "cwd", "/home/sunsw/code"),
+                    Map.of("sessionId", queryId, "cwd", "/home/ubuntu"),
                     10000
                 );
             } catch (Exception ex) {

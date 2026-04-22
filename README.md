@@ -82,7 +82,7 @@ mvn clean package
 # Claude Agent 配置
 # ============================================
 export CLAUDE_AGENT_HOST="127.0.0.1"
-export CLAUDE_AGENT_PORT=3001
+export CLAUDE_AGENT_PORT=8011
 # API 密钥默认从 /home/sunsw/.codex/jwt_secret.key 读取
 export CLAUDE_AGENT_API_KEY=""
 
@@ -115,7 +115,7 @@ export PATH="$JAVA_HOME/bin:../.maven/apache-maven-3.9.14/bin:$PATH"
 
 # 设置 Claude Agent 配置
 export CLAUDE_AGENT_HOST=127.0.0.1
-export CLAUDE_AGENT_PORT=3001
+export CLAUDE_AGENT_PORT=8011
 export CLAUDE_AGENT_API_KEY=""
 export CLAUDE_PASSWORD_ENABLED=false
 export PORT=3000
@@ -128,7 +128,7 @@ java -jar target/claude-web-0.1.0.jar
 ```bash
 java -jar target/claude-web-0.1.0.jar \
   --claude.web.claude-agent.host=127.0.0.1 \
-  --claude.web.claude-agent.port=3001 \
+  --claude.web.claude-agent.port=8011 \
   --claude.web.password-enabled=false \
   --server.port=3000
 ```
@@ -159,7 +159,7 @@ java -jar target/claude-web-0.1.0.jar --server.port=8080
 | 属性 | 环境变量 | 默认值 | 说明 |
 |------|---------|--------|------|
 | `claude.web.claude-agent.host` | `CLAUDE_AGENT_HOST` | `127.0.0.1` | Claude Agent 主机 |
-| `claude.web.claude-agent.port` | `CLAUDE_AGENT_PORT` | `3001` | Claude Agent 端口 |
+| `claude.web.claude-agent.port` | `CLAUDE_AGENT_PORT` | `8011` | Claude Agent 端口 |
 | `claude.web.claude-agent.api-key` | `CLAUDE_AGENT_API_KEY` | - | 认证 API 密钥 |
 | `claude.web.claude-agent.connection-timeout` | `CLAUDE_AGENT_CONNECTION_TIMEOUT` | `30000` | 连接超时（毫秒） |
 

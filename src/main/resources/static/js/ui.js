@@ -124,7 +124,7 @@
         }
 
         const search = state.sidebarSearch.trim().toLowerCase();
-        const currentCwd = '/home/sunsw/code';
+        const currentCwd = '/home/ubuntu';
         let threads = [];
         for (const g of state.projectGroups) {
           for (const t of g.threads) {

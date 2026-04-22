@@ -3,7 +3,7 @@
 # claude-web 启动脚本（仅连接 Claude Agent）
 
 # 默认配置
-JAR_FILE="target/claude-web-1.02.jar"
+JAR_FILE="target/claude-web-1.03.jar"
 PID_FILE="/tmp/claude-web.pid"
 LOG_FILE="/tmp/claude-web.log"
 
@@ -11,7 +11,7 @@ LOG_FILE="/tmp/claude-web.log"
 # Claude Agent 配置
 # ============================================
 export CLAUDE_AGENT_HOST="${CLAUDE_AGENT_HOST:-127.0.0.1}"
-export CLAUDE_AGENT_PORT="${CLAUDE_AGENT_PORT:-3001}"
+export CLAUDE_AGENT_PORT="${CLAUDE_AGENT_PORT:-8011}"
 
 # API 密钥：默认从 Claude Code 的 JWT 密钥文件读取
 # 此密钥与 claude-agent 共享，用于 WebSocket 握手认证

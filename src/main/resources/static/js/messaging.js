@@ -2,7 +2,7 @@
         if (state.isSendingMessage) return;
         const text = els.homeComposer.value.trim();
         if (!text) return;
-        const cwd = '/home/sunsw/code';
+        const cwd = '/home/ubuntu';
         state.isSendingMessage = true;
         els.homeSend.disabled = true;
         let threadId = '';

@@ -71,7 +71,7 @@ public class ClaudeProperties {
     
     public static class ClaudeAgent {
         private String host = "127.0.0.1";
-        private int port = 3001;
+        private int port = 8011;
         private String apiKey = "";
         private int connectionTimeout = 30000;
         
@@ -113,11 +113,11 @@ public class ClaudeProperties {
      * These can be overridden per-session or per-message via the API.
      */
     public static class SessionDefaults {
-        // Default model: claude-sonnet-4-6, claude-opus-4, etc.
-        private String model = "claude-sonnet-4-6";
+        // Model name (e.g., claude-sonnet-4-6, claude-opus-4). No default set.
+        private String model;
         
         // Default working directory for the agent
-        private String cwd = "/home/sunsw/code";
+        private String cwd = "/home/ubuntu";
         
         // Permission mode: default, acceptEdits, acceptAll, rejectAll
         private String permissionMode = "default";
