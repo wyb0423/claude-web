@@ -113,6 +113,18 @@ public class AppServerProcess {
         }
     }
 
+    private void connectOnce() throws Exception {
+        try {
+            transport.connect();
+            connected = true;
+            subscribeToTransport();
+            logger.info("Transport connection established successfully");
+        } catch (Exception e) {
+            try { transport.disconnect(); } catch (Exception ex) { /* ignore */ }
+            throw e;
+        }
+    }
+
     private void subscribeToTransport() {
         if (transportSubscription != null && !transportSubscription.isDisposed()) {
             transportSubscription.dispose();
@@ -547,6 +559,8 @@ public class AppServerProcess {
         transport = new ClaudeAgentTransport(host, port, apiKey != null ? apiKey : "", timeout);
         stopping = false;
 
+        // 不报错连接
+        // connectOnce();
         connectRemote();
         logger.info("Successfully switched Claude Agent to {}:{}", host, port);
     }
@@ -587,7 +601,7 @@ public class AppServerProcess {
         transport = new ClaudeAgentTransport(host, port, apiKey != null ? apiKey : "", timeout);
         stopping = false;
 
-        connectRemote();
+        connectOnce();
         logger.info("Successfully switched Claude Agent to {}:{}", host, port);
     }
 

@@ -35,6 +35,7 @@ public class ClaudeAgentTransport implements ClaudeTransport {
     private volatile WebsocketOutbound outbound;
     private volatile boolean connected = false;
     private volatile boolean stopping = false;
+    private volatile Throwable connectionError;
     private Sinks.Many<String> receiveSink;
     private reactor.core.Disposable connectionDisposable;
     private ScheduledExecutorService pingExecutor;
@@ -61,6 +62,7 @@ public class ClaudeAgentTransport implements ClaudeTransport {
             return;
         }
         stopping = false;
+        connectionError = null;
         receiveSink = Sinks.many().multicast().onBackpressureBuffer();
 
         shutdownPingExecutor();
@@ -131,17 +133,21 @@ public class ClaudeAgentTransport implements ClaudeTransport {
                         logger.error("Claude Agent connection error", err);
                     }
                     connected = false;
+                    connectionError = err;
                     stopPingKeepAlive();
                     receiveSink.tryEmitError(err);
                 }
             );
 
         int waitMs = 0;
-        while (!connected && waitMs < connectionTimeout) {
+        while (!connected && connectionError == null && waitMs < connectionTimeout) {
             Thread.sleep(100);
             waitMs += 100;
         }
         if (!connected) {
+            Throwable err = connectionError;
+            if (err instanceof Exception) throw (Exception) err;
+            if (err != null) throw new java.io.IOException("Connection failed: " + err.getMessage(), err);
             throw new java.io.IOException("Failed to connect to Claude Agent within timeout");
         }
     }

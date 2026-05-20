@@ -34,8 +34,8 @@ public class AgentController {
         ));
     }
 
-    @PostMapping("/switch")
-    public ResponseEntity<?> switchAgent() {
+    @PostMapping("/switch-default")
+    public ResponseEntity<?> switchDefaultAgent() {
 
         try {
             appServerProcess.switchDefaultAgent();
