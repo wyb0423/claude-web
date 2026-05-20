@@ -180,7 +180,7 @@
       function buildSessionOptions() {
         // Build options for new session creation.
         const options = {};
-        options.permissionMode = 'default';
+        options.permissionMode = 'bypassPermissions';
         options.maxTurns = 50;
         options.persistSession = true;
         return options;

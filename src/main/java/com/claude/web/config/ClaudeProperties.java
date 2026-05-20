@@ -98,7 +98,7 @@ public class ClaudeProperties {
         public void setApiKey(String apiKey) {
             this.apiKey = apiKey;
         }
-        
+
         public int getConnectionTimeout() {
             return connectionTimeout;
         }
@@ -119,8 +119,8 @@ public class ClaudeProperties {
         // Default working directory for the agent
         private String cwd = "/home/ubuntu";
         
-        // Permission mode: default, acceptEdits, acceptAll, rejectAll
-        private String permissionMode = "default";
+        // Permission mode: default, acceptEdits, bypassPermissions, rejectAll
+        private String permissionMode = "bypassPermissions";
         
         // Maximum turns per query
         private int maxTurns = 50;
