@@ -1,4 +1,10 @@
-# SessionApiPostController 接口文档
+# Claude Web 接口文档
+
+> 最后更新：2026-05-20
+
+---
+
+# 一、SessionApiPostController 接口
 
 **基础路径:** `/api/claude/v2`
 
@@ -392,6 +398,108 @@ data: {"method":"complete","params":{"sessionId":"xxx-xxx"}}
 
 **副作用:**
 - 同时更新MySQL数据库中对应session的sessionTitle
+
+---
+
+# 二、AgentController 接口
+
+**基础路径:** `/api/agent`
+
+运行时管理 Claude Agent 连接，支持查询状态和热切换目标 Agent。
+
+---
+
+## 1. status - 查询连接状态
+
+获取当前连接的 Claude Agent 地址及连接状态。
+
+**端点:** `GET /api/agent/status`
+
+**请求参数:** 无
+
+**响应示例:**
+```json
+{
+  "host": "127.0.0.1",
+  "port": 3000,
+  "connected": true,
+  "apiKeySet": true
+}
+```
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| host | String | 当前连接的 Agent 主机地址 |
+| port | Integer | 当前连接的 Agent 端口 |
+| connected | Boolean | 是否已成功连接 |
+| apiKeySet | Boolean | 是否已配置 API Key |
+
+---
+
+## 2. switch-default - 切换回默认 Agent
+
+将连接切换回配置文件中定义的默认 Claude Agent。
+
+**端点:** `POST /api/agent/switch-default`
+
+**请求参数:** 无
+
+**响应示例（成功）:**
+```json
+{
+  "ok": true,
+  "agent": "default"
+}
+```
+
+**响应示例（失败，HTTP 503）:**
+```json
+{
+  "error": "未能连接到默认Agent: ..."
+}
+```
+
+---
+
+## 3. switch - 切换到指定 Agent
+
+切换到指定地址的 Claude Agent，连接失败时立即返回错误（不重试）。
+
+**端点:** `POST /api/agent/switch`
+
+**请求参数（JSON Body）:**
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| host | String | 是 | 目标 Agent 主机地址（不能为空） |
+| port | Integer | 是 | 目标 Agent 端口（1–65535） |
+| apiKey | String | 否 | 目标 Agent 的 API Key |
+
+**响应示例（成功）:**
+```json
+{
+  "ok": true,
+  "host": "192.168.1.100",
+  "port": 3000
+}
+```
+
+**响应示例（参数校验失败，HTTP 400）:**
+```json
+{
+  "error": "host 不能为空"
+}
+```
+
+**响应示例（连接失败，HTTP 503）:**
+```json
+{
+  "error": "连接失败: ..."
+}
+```
+
+**说明:**
+- 与 `switch-default` 不同，此接口使用一次性连接（`connectOnce`），连接失败立即抛出异常并返回 503，不会进行重连重试。
 
 ---
 
