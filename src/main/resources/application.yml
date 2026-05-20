@@ -46,3 +46,6 @@ logging:
   level:
     com.claude.web: INFO
     org.springframework.security: INFO
+
+jwt:
+  secret: MDk4ZaZiY2Q0BjIxZDM3k2NhZGU0ZPgzMjYyN2I0ZjY=
