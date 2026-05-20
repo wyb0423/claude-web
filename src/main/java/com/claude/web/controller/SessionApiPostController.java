@@ -371,7 +371,8 @@ public class SessionApiPostController {
             return ResponseEntity.ok(ApiResponse.success(data, "session created"));
         } catch (Exception e) {
             logger.error("Failed to create session", e);
-            return ResponseEntity.status(502).body(Map.of("error", e.getMessage()));
+            String msg = e.getMessage() != null ? e.getMessage() : e.getClass().getName();
+            return ResponseEntity.status(502).body(Map.of("error", msg));
         }
     }
 
