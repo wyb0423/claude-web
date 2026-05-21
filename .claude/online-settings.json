@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": false,
+    "superpowers@claude-plugins-official": true,
+    "oh-my-claudecode@omc": true,
+    "frontend-design@claude-plugins-official": true
+  },
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-kimi-SAkqN1UV7iKPfM7ncnkvbB8Bm6Fnaa7KBzlR904ZQYj3ellIezxPAaXi0mEWoIcr",
+    "ANTHROPIC_BASE_URL": "https://api.kimi.com/coding/",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-for-coding",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "kimi-for-coding",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "kimi-for-coding",
+    "ANTHROPIC_MODEL": "kimi-for-coding",
+    "ANTHROPIC_REASONING_MODEL": "kimi-for-coding",
+    "ANTHROPIC_REASONING_EFFORT": "high",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_RESPONSE_STORAGE": "1",
+    "REQUIRES_OPENAI_AUTH": "1",
+    "MCP_TIMEOUT": "60000"
+  },
+  "hooks": {},
+  "includeCoAuthoredBy": false,
+  "model": "GLM-4.7-AWQ",
+  "outputStyle": "engineer-professional",
+  "permissions": {
+  "allow": [
+    "Read",
+    "Edit",
+    "Write",
+    "Bash(python *)",
+    "Bash(python3 *)",
+    "Bash(pip list)",
+    "Bash(pip3 list)",
+    "Bash(curl *)",
+    "Bash(wget *)"
+  ],
+  "deny": [
+    "Edit(../)",
+    "Write(../)",
+    "Edit(~/.claude/skills/**)",
+    "Write(~/.claude/skills/**)",
+    "Edit(.claude/agents/**)",
+    "Write(.claude/agents/**)",
+    "Bash(rm * ~/.claude/agents/**)",
+    "Bash(sudo *)",
+    "Bash(rm -rf *)"
+  ],
+  "defaultMode": "bypassPermissions"
+  },
+  "bypassPermissions": true,
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true
+}
