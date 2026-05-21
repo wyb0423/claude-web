@@ -10,7 +10,7 @@ public class Constant {
     /**
      * token
      */
-    public static final String TOKEN = "hr_token";
+    public static final String TOKEN = "ai_token";
     public static final String USERID = "userId";
 
     public static final String CFFEX_HR_CODE = "cffex";

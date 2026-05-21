@@ -1274,11 +1274,11 @@ public class SessionApiPostController {
         }
 
         public static Map<String, Object> success(Object data) {
-            return Map.of("code", 200, "message", "success", "data", data != null ? data : new Object());
+            return Map.of("code", 200, "message", "success", "data", data != null ? data : Map.of());
         }
 
         public static Map<String, Object> success(Object data, String message) {
-            return Map.of("code", 200, "message", message, "data", data != null ? data : new Object());
+            return Map.of("code", 200, "message", message, "data", data != null ? data : Map.of());
         }
 
         public static Map<String, Object> error(int code, String message) {
