@@ -885,7 +885,13 @@ public class SessionApiPostController {
 
             sessions.remove(sessionId);
             sessionMessages.remove(sessionId);
-            
+
+            try {
+                aiSessionMapper.deleteBySessionId(sessionId);
+            } catch (Exception ex) {
+                logger.warn("Failed to delete session from MySQL for {}: {}", sessionId, ex.getMessage());
+            }
+
             Map<String, Object> data = new HashMap<>();
             data.put("sessionId", sessionId);
             data.put("status", "archived");
